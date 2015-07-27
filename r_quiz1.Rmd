@@ -1,0 +1,111 @@
+---
+title: "R Quiz 1"
+author: "amk"
+date: "13 January 2015"
+output: html_document
+---
+
+Data Science Specialization R course.
+
+Quiz 1 
+
+INPUT -> Download the zip file form the quiz page and unzip it and import it by the following command
+
+```{r}
+data <- read.csv("hw1_data.csv")
+```
+
+> Question 11
+
+In the dataset provided for this Quiz, what are the column names of the dataset?
+
+Answer
+
+The column names when tryin to print a row are given as informantio by the console
+```{r}
+data[1, ]
+```
+
+> Question 12
+
+Extract the first 2 rows of the data frame and print them to the console. What does the output look like?
+
+Answer
+```{r}
+data[1:2,]
+```
+> Question 13
+
+How many observations (i.e. rows) are in this data frame?
+
+Answer
+```{r}
+nrow(data)
+```
+
+> Question 14
+
+Extract the last 2 rows of the data frame and print them to the console. What does the output look like?
+
+Answer
+```{r}
+tail(data,2)
+```
+
+> Question 15
+
+What is the value of Ozone in the 47th row?
+
+Answer 
+```{r}
+data[47, "Ozone"]
+
+```
+
+> Question 16
+
+How many missing values are in the Ozone column of this data frame?
+
+Answer
+```{r}
+sum(is.na(data[,"Ozone"]))
+```
+
+> Question 17
+
+What is the mean of the Ozone column in this dataset? Exclude missing values (coded as NA) from this calculation.
+
+Answer
+```{r}
+mean(data$Ozone, na.rm=TRUE)
+```
+
+> Question 18
+
+Extract the subset of rows of the data frame where Ozone values are above 31 and Temp values are above 90. What is the mean of Solar.R in this subset?
+
+Answer
+```{r}
+dat <- data[data[, "Ozone"] > 31 & data[, "Temp"] > 90, ]
+mean(dat$Solar.R, na.rm=TRUE)
+```
+
+> Question 19
+
+What is the mean of "Temp" when "Month" is equal to 6?
+
+Answer
+```{r}
+dat <- data[data[, "Month"] == 6,]
+mean(dat$Temp)
+```
+
+> Question 20
+
+What was the maximum ozone value in the month of May (i.e. Month = 5)?
+
+Answer
+```{r}
+dat <- data[data[,"Month"] == 5, ]
+max(dat$Ozone, na.rm=TRUE)
+```
