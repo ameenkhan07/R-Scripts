@@ -1,0 +1,89 @@
+---
+title: "Explore Data Assignment 1"
+author: "amk"
+date: "20 Jan 2015"
+output: html_document
+---
+
+OBJECTIVE - Make plots from the provided dataset, similar to the ones provided in the "DESC"
+
+Data Source - <https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip>
+
+Download the file form the source indicated and unzip the data, a txt file, in the working directory.
+
+```{r}
+file <- "household_power_consumption.txt"
+data <- read.table(file, sep=";", header=TRUE, na.strings="?")
+```
+
+In following chunks, png and dev.off calls have been commented
+> PLOT 1
+
+DESC - <https://github.com/ameenkhan07/ExData_Plotting1/blob/master/figure/unnamed-chunk-2.png>
+
+```{r}
+dat <- data[data$Date %in% c("1/2/2007","2/2/2007") ,]
+pow <- as.numeric(dat$Global_active_power)
+#png("plot1.png", width=480, height=480)
+hist(pow, col="red", main="Global Active Power", xlab="Global Active Power (kilowatts)")
+#dev.off()
+```
+
+> PLOT 2
+
+DESC - <https://github.com/ameenkhan07/ExData_Plotting1/blob/master/figure/unnamed-chunk-3.png>
+
+```{r}
+dat <- data[data$Date %in% c("1/2/2007","2/2/2007") ,]
+datetime <- strptime(paste(dat$Date, dat$Time, sep=" "), "%d/%m/%Y %H:%M:%S") 
+pow <- as.numeric(dat$Global_active_power)
+#png("plot2.png", width=480, height=480)
+plot(datetime, pow, type="l", xlab="", ylab="Global Active Power (kilowatts)")
+#dev.off()
+```
+
+
+> PLOT 3
+
+DESC - <https://github.com/ameenkhan07/ExData_Plotting1/blob/master/figure/unnamed-chunk-4.png>
+
+```{r}
+dat <- data[data$Date %in% c("1/2/2007","2/2/2007") ,]
+datetime <- strptime(paste(dat$Date, dat$Time, sep=" "), "%d/%m/%Y %H:%M:%S") 
+pow <- as.numeric(dat$Global_active_power)
+subMetering1 <- as.numeric(dat$Sub_metering_1)
+subMetering2 <- as.numeric(dat$Sub_metering_2)
+subMetering3 <- as.numeric(dat$Sub_metering_3)
+#png("plot3.png", width=480, height=480)
+plot(datetime, subMetering1, type="l", ylab="Energy sub metering", xlab="")
+lines(datetime, subMetering2, type="l", col="red")
+lines(datetime, subMetering3, type="l", col="blue")
+legend("topright", c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), lty=1, lwd=2.5, col=c("black", "red", "blue"))
+#dev.off()
+```
+
+> PLOT 4
+
+DESC - <https://github.com/ameenkhan07/ExData_Plotting1/blob/master/figure/unnamed-chunk-5.png>
+
+```{r}
+dar <- data[data$Date %in% c("1/2/2007","2/2/2007") ,]
+datetime <- strptime(paste(dat$Date, dat$Time, sep=" "), "%d/%m/%Y %H:%M:%S") 
+pow <- as.numeric(dat$Global_active_power)
+rpow <- as.numeric(dat$Global_reactive_power)
+voltage <- as.numeric(dat$Voltage)
+subMetering1 <- as.numeric(dat$Sub_metering_1)
+subMetering2 <- as.numeric(dat$Sub_metering_2)
+subMetering3 <- as.numeric(dat$Sub_metering_3)
+
+#png("plot4.png", width=480, height=480)
+par(mfrow = c(2, 2)) 
+plot(datetime, pow, type="l", xlab="", ylab="Global Active Power", cex=0.2)
+plot(datetime, voltage, type="l", xlab="datetime", ylab="Voltage")
+plot(datetime, subMetering1, type="l", ylab="Energy sub metering", xlab="")
+lines(datetime, subMetering2, type="l", col="red")
+lines(datetime, subMetering3, type="l", col="blue")
+legend("topright", c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), lty=1, lwd=2.5, col=c("black", "red", "blue"), bty="o")
+plot(datetime, rpow, type="l", xlab="datetime", ylab="Global_reactive_power")
+#dev.off()
+```
