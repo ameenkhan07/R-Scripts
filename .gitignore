@@ -1,3 +1,7 @@
 *.csv
 *.png
 *.txt
+*.xml
+*.for
+*rds
+*.xlsx
